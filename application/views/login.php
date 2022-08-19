@@ -30,7 +30,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Task</b> Management</a>
+    <a href="#"><b> Daily Task</b> Management</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
