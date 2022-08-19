@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 07:39 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Aug 19, 2022 at 09:59 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `employeeigniter`
+-- Database: `toonz`
 --
 
 -- --------------------------------------------------------
@@ -287,13 +288,39 @@ INSERT INTO `country_tbl` (`id`, `country_code`, `country_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dailytask`
+--
+
+CREATE TABLE `dailytask` (
+  `dailyTaskId` int(11) NOT NULL,
+  `jobTitle` varchar(500) NOT NULL,
+  `jobDate` date NOT NULL,
+  `startTime` varchar(225) NOT NULL,
+  `endTime` varchar(225) NOT NULL,
+  `description` text NOT NULL,
+  `status` int(11) NOT NULL,
+  `updated_on` datetime NOT NULL,
+  `staff_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dailytask`
+--
+
+INSERT INTO `dailytask` (`dailyTaskId`, `jobTitle`, `jobDate`, `startTime`, `endTime`, `description`, `status`, `updated_on`, `staff_id`) VALUES
+(1, 'Testing', '2022-08-19', '10:00:00 AM', '12:00:00 PM', 'testing', 1, '0000-00-00 00:00:00', 16),
+(2, 'Development', '2022-08-19', '09:00:00 AM', '06:00:00 PM', 'test', 0, '0000-00-00 00:00:00', 17);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `department_tbl`
 --
 
 CREATE TABLE `department_tbl` (
   `id` int(11) NOT NULL,
   `department_name` varchar(100) NOT NULL,
-  `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `added_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -311,35 +338,6 @@ INSERT INTO `department_tbl` (`id`, `department_name`, `added_on`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `leave_tbl`
---
-
-CREATE TABLE `leave_tbl` (
-  `id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `leave_reason` varchar(90) NOT NULL,
-  `description` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '0',
-  `leave_from` date NOT NULL,
-  `leave_to` date NOT NULL,
-  `updated_on` date NOT NULL,
-  `applied_on` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `leave_tbl`
---
-
-INSERT INTO `leave_tbl` (`id`, `staff_id`, `leave_reason`, `description`, `status`, `leave_from`, `leave_to`, `updated_on`, `applied_on`) VALUES
-(1, 2, 'Sick', 'Not feeling well enough to join', 1, '2021-01-15', '2021-01-17', '0000-00-00', '2021-01-15'),
-(2, 5, 'Casual Leave', 'been working for full hours since last month, got to free my mind for few days', 1, '2021-05-28', '2021-05-29', '0000-00-00', '2021-05-27'),
-(3, 6, 'Day Off', 'Requesting for a day off as I need to join my pal\'s wedding!', 1, '2021-05-28', '2021-05-29', '0000-00-00', '2021-05-27'),
-(4, 3, 'Casual Leave', 'for vacation, rest, and family events', 2, '2021-05-30', '2021-06-06', '0000-00-00', '2021-05-27'),
-(5, 9, 'Quarantine', 'i need to quarantine myself for few weeks as i got some symptoms of covid-19', 1, '2021-05-28', '2021-06-11', '0000-00-00', '2021-05-27');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `login_tbl`
 --
 
@@ -348,7 +346,7 @@ CREATE TABLE `login_tbl` (
   `username` varchar(80) NOT NULL,
   `password` varchar(80) NOT NULL,
   `usertype` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -356,43 +354,10 @@ CREATE TABLE `login_tbl` (
 --
 
 INSERT INTO `login_tbl` (`id`, `username`, `password`, `usertype`, `status`) VALUES
-(1, 'admin', 'password0101', 1, 1),
+(1, 'admin', 'admin@123', 1, 1),
 (2, 'steven@gmail.com', '7444440001', 2, 1),
-(3, 'tatiana@gmail.com', '7402222220', 2, 1),
-(4, 'christine@gmail.com', '8888877777', 2, 1),
-(5, 'liam@gmail.com', '7410233333', 2, 1),
-(6, 'barnes@gmail.com', '1010101010', 2, 1),
-(7, 'samuel@gmail.com', '7410000010', 2, 1),
-(8, 'markh@gmail.com', '7070707069', 2, 1),
-(9, 'angela@gmail.com', '7417417417', 2, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `salary_tbl`
---
-
-CREATE TABLE `salary_tbl` (
-  `id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
-  `basic_salary` bigint(20) NOT NULL,
-  `allowance` bigint(20) NOT NULL,
-  `total` bigint(20) NOT NULL,
-  `added_by` int(11) NOT NULL,
-  `updated_on` date NOT NULL,
-  `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `salary_tbl`
---
-
-INSERT INTO `salary_tbl` (`id`, `staff_id`, `basic_salary`, `allowance`, `total`, `added_by`, `updated_on`, `added_on`) VALUES
-(1, 2, 14000, 0, 14000, 1, '0000-00-00', '2021-05-02 08:23:30'),
-(2, 3, 9100, 300, 9400, 1, '0000-00-00', '2021-04-28 02:39:23'),
-(3, 4, 4950, 0, 4950, 1, '0000-00-00', '2021-04-30 07:38:02'),
-(4, 5, 6100, 250, 6350, 1, '0000-00-00', '2021-04-30 13:57:02'),
-(5, 9, 4750, 190, 4940, 1, '0000-00-00', '2021-05-27 17:31:05');
+(16, 'mukul@gmail.com', '8878767678', 2, 1),
+(17, 'test@gamil.com', '8157033129', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -408,7 +373,7 @@ CREATE TABLE `staff_tbl` (
   `mobile` bigint(20) NOT NULL,
   `dob` date NOT NULL,
   `doj` date NOT NULL,
-  `address` text,
+  `address` text DEFAULT NULL,
   `city` varchar(100) NOT NULL,
   `state` varchar(100) NOT NULL,
   `country` varchar(50) NOT NULL,
@@ -416,7 +381,7 @@ CREATE TABLE `staff_tbl` (
   `pic` varchar(150) NOT NULL DEFAULT 'default-pic.jpg',
   `added_by` int(11) NOT NULL,
   `updated_on` date NOT NULL,
-  `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `added_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -424,14 +389,8 @@ CREATE TABLE `staff_tbl` (
 --
 
 INSERT INTO `staff_tbl` (`id`, `staff_name`, `gender`, `email`, `mobile`, `dob`, `doj`, `address`, `city`, `state`, `country`, `department_id`, `pic`, `added_by`, `updated_on`, `added_on`) VALUES
-(2, 'Steven Askew', 'Male', 'steven@gmail.com', 7444440001, '1990-02-18', '2020-11-27', '3721  Hill Croft Farm Road', 'BURLINGTON', 'MI', 'United States', 1, 'smportrait.jpg', 0, '0000-00-00', '2021-05-27 15:37:03'),
-(3, 'Tatiana Breit', 'Female', 'tatiana@gmail.com', 7402222220, '1994-10-14', '2021-02-21', '3397  Happy Hollow Road', 'Jacksonville', 'NC', 'United States', 2, 'prtwm.jpg', 0, '0000-00-00', '2021-05-27 15:37:16'),
-(4, 'Christine Moore', 'Female', 'christine@gmail.com', 8888877777, '1994-08-01', '2020-01-15', '4047  Timbercrest Road', 'Anchorage', 'AK', 'United States', 3, 'christen-freeimg.jpg', 0, '0000-00-00', '2021-05-27 15:31:20'),
-(5, 'Liam Moore', 'Male', 'liam@gmail.com', 7410233333, '1994-12-02', '2021-04-04', '3474  Viking Drive', 'Worthington', 'OH', 'United States', 4, '7002489_preview.jpg', 1, '0000-00-00', '2021-05-27 13:55:22'),
-(6, 'George J Barnes', 'Male', 'barnes@gmail.com', 1010101010, '1988-02-03', '2021-01-13', '3079  Chardonnay Drive', 'Ocala', 'FL', 'United States', 2, 'skport.jpg', 1, '0000-00-00', '2021-05-27 15:28:48'),
-(7, 'Samuel Huntsman', 'Male', 'samuel@gmail.com', 7410000010, '1991-12-28', '2021-04-25', '2315  Cherry Tree Drive', 'Jacksonville', 'FL', 'United States', 5, 'dportrait.jpg', 1, '0000-00-00', '2021-05-27 16:52:18'),
-(8, 'Mark Heiden', 'Male', 'markh@gmail.com', 7070707069, '1990-02-12', '2021-02-04', '2190  Laurel Lane', 'Midland', 'TX', 'United States', 2, 'pauptr.jpg', 1, '0000-00-00', '2021-05-27 16:53:57'),
-(9, 'Angela Bridges', 'Female', 'angela@gmail.com', 7417417417, '1992-02-11', '2021-03-05', '3538 Melville Street', 'Jackson', 'TN', 'United States', 6, 'sm-freeimg.jpg', 1, '0000-00-00', '2021-05-27 17:29:36');
+(16, 'Mukul Shaji', 'Male', 'mukul@gmail.com', 8878767678, '2004-01-14', '2022-08-19', 'dobtbox ', 'trivandrum', 'kerala', 'India', 1, 'images_(1).jpg', 0, '0000-00-00', '2022-08-19 07:38:15'),
+(17, 'test1', 'Female', 'test@gamil.com', 8157033129, '1998-01-19', '2022-08-19', 'Test addresss', 'trivandrum', 'kerala', 'India', 1, 'girl-New-Superb-Whatsapp-Dp-Profile-Images-photo1.jpg', 1, '0000-00-00', '2022-08-19 07:37:57');
 
 --
 -- Indexes for dumped tables
@@ -444,27 +403,21 @@ ALTER TABLE `country_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `dailytask`
+--
+ALTER TABLE `dailytask`
+  ADD PRIMARY KEY (`dailyTaskId`);
+
+--
 -- Indexes for table `department_tbl`
 --
 ALTER TABLE `department_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `leave_tbl`
---
-ALTER TABLE `leave_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `login_tbl`
 --
 ALTER TABLE `login_tbl`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `salary_tbl`
---
-ALTER TABLE `salary_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -482,31 +435,32 @@ ALTER TABLE `staff_tbl`
 --
 ALTER TABLE `country_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+
+--
+-- AUTO_INCREMENT for table `dailytask`
+--
+ALTER TABLE `dailytask`
+  MODIFY `dailyTaskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `department_tbl`
 --
 ALTER TABLE `department_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `leave_tbl`
---
-ALTER TABLE `leave_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `login_tbl`
 --
 ALTER TABLE `login_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `salary_tbl`
---
-ALTER TABLE `salary_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
 --
 -- AUTO_INCREMENT for table `staff_tbl`
 --
 ALTER TABLE `staff_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
