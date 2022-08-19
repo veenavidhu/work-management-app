@@ -51,6 +51,7 @@
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Hours</th>
                     <th>Status</th>
                     <th>Description</th>
                     
@@ -61,6 +62,10 @@
                     if(isset($content)):
                     $i=1; 
                     foreach($content as $cnt): 
+                      
+                      $datetime1 = new DateTime($cnt['startTime']);
+$datetime2 = new DateTime($cnt['endTime']);
+$interval = $datetime1->diff($datetime2);
                   ?>
                       <tr>
                         <td><?php echo $i; ?></td>
@@ -68,6 +73,7 @@
                         <td><?php echo date('d-m-Y', strtotime($cnt['jobDate'])); ?></td>
                         <td><?php echo $cnt['startTime']; ?></td>
                         <td><?php echo $cnt['endTime']; ?></td>
+                        <td><?php echo $interval->format('%hh %im')?></td>
                         <td>
                           <?php if($cnt['status']==0): ?>
                           <span class="label label-info">Pending</span>

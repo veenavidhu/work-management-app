@@ -61,13 +61,15 @@
                   </thead>
                   <tbody>
 
-                  <?php $datetime1 = new DateTime($cnt['startTime']);
-$datetime2 = new DateTime($cnt['endTime']);
-$interval = $datetime1->diff($datetime2);
+                  <?php 
 
                     if(isset($content)):
                     $i=1; 
                     foreach($content as $cnt): 
+
+                      $datetime1 = new DateTime($cnt['startTime']);
+$datetime2 = new DateTime($cnt['endTime']);
+$interval = $datetime1->diff($datetime2);
                   ?>
                   
                       <tr>
