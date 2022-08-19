@@ -53,17 +53,23 @@
                     <th>Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
+                    <th>Hours</th>
                     <th>Description</th>
                     
                     <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php 
+
+                  <?php $datetime1 = new DateTime($cnt['startTime']);
+$datetime2 = new DateTime($cnt['endTime']);
+$interval = $datetime1->diff($datetime2);
+
                     if(isset($content)):
                     $i=1; 
                     foreach($content as $cnt): 
                   ?>
+                  
                       <tr>
                         <td><?php echo $i; ?></td>
                         <td><?php echo $cnt['staff_name']; ?></td>
@@ -72,6 +78,7 @@
                         <td><?php echo date('Y-m-d', strtotime($cnt['jobDate'])); ?></td>
                         <td><?php echo $cnt['startTime']; ?></td>
                        <td><?php echo $cnt['endTime']; ?></td>
+                       <td><?php echo $interval->format('%hh %im')?></td>
                         <td><?php echo $cnt['description']; ?></td>
                         
                         <td>
