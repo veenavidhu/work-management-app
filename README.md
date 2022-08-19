@@ -1,9 +1,8 @@
 # work-management-app
-**Log on to codeastro.com for more projects!**
 
-**Database Name: employeeigniter**
+**Database Name: toonz**
 
-**Developed by Muhammed Sadique KP**
+**Developed by veenamol v**
 
 **Recommended PHP Version 5.6.3 and Newer**
 
@@ -17,4 +16,10 @@ Password: admin@123
 
 Email	: mukul@gmail.com
 Password: 7410233333
+
+**github project account**
+
+https://github.com/veenavidhu/work-management-app
+
+Database zip file is included in DATABASE FILE folder.toonzDatabse.sql is the file name
 
